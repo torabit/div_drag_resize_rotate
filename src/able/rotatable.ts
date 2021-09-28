@@ -3,11 +3,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import DegState from "../states/atoms/DegState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
-import {useDragReturn, ReSizeState} from "../interfaces/index";
+import {useDragReturn, RotateState} from "../interfaces/index";
 
 export const Rotatable = <T extends Element> (): useDragReturn<T> => {
 
-  const [state, setState] = useState<ReSizeState | null>(null);
+  const [state, setState] = useState<RotateState | null>(null);
   const setDeg = useSetRecoilState(DegState);
   const size = useRecoilValue(SizeState);
   const position = useRecoilValue(PositionState);
@@ -19,10 +19,6 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
         currentSize: {
           height: size.height,
           width: size.width
-        },
-        startCursor: {
-          x: event.pageX,
-          y: event.pageY
         },
         currentPosition: {
           x: position.x,

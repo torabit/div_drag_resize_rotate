@@ -4,7 +4,7 @@ import PositionState from "../../states/atoms/PositionState";
 import SizeState from "../../states/atoms/SizeState";
 import DegState from "../../states/atoms/DegState";
 import { Movable, Resizer, Rotatable} from "../../able"
-import { Direction } from "../../interfaces";
+import { Direction } from "../../utils";
 import '../../App.css';
 
 const MyDraggable: React.FC = () => {
@@ -30,10 +30,10 @@ const MyDraggable: React.FC = () => {
       id="item"
       style={{ 
         transform: `rotate(${deg}deg)`, 
-        width: `${size.width}px`, 
-        height: `${size.height}px`,
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        width: Math.abs(size.width), 
+        height: Math.abs(size.height),
+        left: Math.abs(position.x),
+        top: Math.abs(position.y), 
       }}
     >
       <div

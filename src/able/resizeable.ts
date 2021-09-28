@@ -1,6 +1,7 @@
 import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useDragReturn, ReSizeState, Direction } from "../interfaces";
+import { useDragReturn, ReSizeState } from "../interfaces";
+import { Direction } from "../utils";
 import DegState from "../states/atoms/DegState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
