@@ -32,8 +32,8 @@ const MyDraggable: React.FC = () => {
         transform: `rotate(${deg}deg)`, 
         width: Math.abs(size.width), 
         height: Math.abs(size.height),
-        left: Math.abs(position.x),
-        top: Math.abs(position.y), 
+        left: Math.round(position.x),
+        top: Math.round(position.y), 
       }}
     >
       <div

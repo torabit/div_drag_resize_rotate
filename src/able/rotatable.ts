@@ -40,12 +40,17 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
         y: event.pageY
       };
 
-      let x = state.currentPosition.x + (state.currentSize.width / 2);
-      let y = state.currentPosition.y + (state.currentSize.height / 2);
-      let radian = Math.atan2(currentCursor.y - y, currentCursor.x  - x);
+      let centerX = state.currentPosition.x + (state.currentSize.width / 2);
+      let centerY = state.currentPosition.y + (state.currentSize.height / 2);
+      let radian = Math.atan2(currentCursor.y - centerY, currentCursor.x  - centerX);
       let rot = (radian * (180 / Math.PI) + 90);
-
-      setDeg(Math.round(rot));
+      let angle = rot;
+      if(rot >= 360) {
+        angle -= 360;
+      } else if(rot < 0) {
+        angle += 360;
+      }
+      setDeg(Math.round(angle));
     },
     [state, setDeg]
   );
@@ -63,12 +68,17 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
         y: event.pageY
       };
 
-      let x = state.currentPosition.x + (state.currentSize.width / 2);
-      let y = state.currentPosition.y + (state.currentSize.height / 2);
-      let radian = Math.atan2(currentCursor.y - y, currentCursor.x  - x);
+      let cenetrX = state.currentPosition.x + (state.currentSize.width / 2);
+      let centerY = state.currentPosition.y + (state.currentSize.height / 2);
+      let radian = Math.atan2(currentCursor.y - centerY, currentCursor.x  - cenetrX);
       let rot = (radian * (180 / Math.PI) + 90);
-
-      setDeg(Math.round(rot));
+      let angle = rot;
+      if(rot >= 360) {
+        angle -= 360;
+      } else if(rot < 0) {
+        angle += 360;
+      }
+      setDeg(Math.round(angle));
     },
     [state, setDeg]
   );
