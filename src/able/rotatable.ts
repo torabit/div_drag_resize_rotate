@@ -1,6 +1,6 @@
 import { useState, useCallback, PointerEvent } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import DegState from "../states/atoms/DegState";
+import { useRecoilValue, useRecoilState } from "recoil";
+import RadianState from "../states/atoms/RadianState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
 import {useDragReturn, RotateState} from "../interfaces/index";
@@ -8,9 +8,10 @@ import {useDragReturn, RotateState} from "../interfaces/index";
 export const Rotatable = <T extends Element> (): useDragReturn<T> => {
 
   const [state, setState] = useState<RotateState | null>(null);
-  const setDeg = useSetRecoilState(DegState);
+  const [radian, setRadian] = useRecoilState(RadianState);
   const size = useRecoilValue(SizeState);
   const position = useRecoilValue(PositionState);
+
 
   const startDrag = useCallback(
     (event: PointerEvent<T>) => {
@@ -23,10 +24,14 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
         currentPosition: {
           x: position.x,
           y: position.y
-        }
+        },
+        startVector: {
+          x: event.clientX - position.x,
+          y: event.clientY - position.y,
+        },
       });
     },
-    [size.height, size.width, size.height, size.width, position.x, position.y]
+    [size.height, size.width, position.x, position.y]
   );
 
   const dragging = useCallback(
@@ -35,24 +40,17 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
       event.preventDefault();
       if (state === null) return;
 
-      const currentCursor = {
-        x: event.pageX,
-        y: event.pageY
-      };
-
-      let centerX = state.currentPosition.x + (state.currentSize.width / 2);
-      let centerY = state.currentPosition.y + (state.currentSize.height / 2);
-      let radian = Math.atan2(currentCursor.y - centerY, currentCursor.x  - centerX);
-      let rot = (radian * (180 / Math.PI) + 90);
-      let angle = rot;
-      if(rot >= 360) {
-        angle -= 360;
-      } else if(rot < 0) {
-        angle += 360;
+      const rotateVector = {
+        x: event.clientX - state.currentPosition.x,
+        y: event.clientY - state.currentPosition.y
       }
-      setDeg(Math.round(angle));
+      
+      const dot = state.startVector.x * rotateVector.x + state.startVector.y * rotateVector.y;
+      const det = state.startVector.x * rotateVector.y - state.startVector.y * rotateVector.x;
+      const angle = (Math.atan2(det, dot) / Math.PI) * 180;
+      setRadian((radian + angle + 360) % 360);
     },
-    [state, setDeg]
+    [state, setRadian]
   );
 
   const endDrag = useCallback(
@@ -63,24 +61,8 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
 
       if (state === null) return;
 
-      const currentCursor = {
-        x: event.pageX,
-        y: event.pageY
-      };
-
-      let cenetrX = state.currentPosition.x + (state.currentSize.width / 2);
-      let centerY = state.currentPosition.y + (state.currentSize.height / 2);
-      let radian = Math.atan2(currentCursor.y - centerY, currentCursor.x  - cenetrX);
-      let rot = (radian * (180 / Math.PI) + 90);
-      let angle = rot;
-      if(rot >= 360) {
-        angle -= 360;
-      } else if(rot < 0) {
-        angle += 360;
-      }
-      setDeg(Math.round(angle));
     },
-    [state, setDeg]
+    [state]
   );
   return {
     onPointerDown: startDrag,

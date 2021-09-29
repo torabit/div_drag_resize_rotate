@@ -20,8 +20,8 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
           y: position.y,
         },
         startCursor: {
-          x: event.pageX,
-          y: event.pageY,
+          x: event.clientX,
+          y: event.clientY,
         }
       });
       
@@ -36,8 +36,8 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
       if (state === null) return;
 
       const currentCursor = {
-        x: event.pageX,
-        y: event.pageY
+        x: event.clientX,
+        y: event.clientY
       };
 
       setPosition({
@@ -57,8 +57,8 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
       if (state === null) return;
 
       const currentCursor = {
-        x: event.pageX,
-        y: event.pageY
+        x: event.clientX,
+        y: event.clientY
       };
 
       setPosition({

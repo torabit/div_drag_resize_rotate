@@ -3,7 +3,7 @@ import { Position } from "../../interfaces";
 
 const PositionState = atom<Position> ({
   key: "PositionState",
-  default: {x: 300, y: 150}
+  default: {x: 250, y: 200}
 });
 
 export default PositionState;

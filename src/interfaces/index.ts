@@ -31,4 +31,5 @@ export interface ReSizeState {
 export interface RotateState {
   currentSize: Size;
   currentPosition: Position;
+  startVector: Position
 }
