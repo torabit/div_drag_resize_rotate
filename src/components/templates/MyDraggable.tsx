@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import PositionState from "../../states/atoms/PositionState";
 import SizeState from "../../states/atoms/SizeState";
-import DegState from "../../states/atoms/DegState";
+import RadianState from "../../states/atoms/RadianState";
 import { Movable, Resizer, Rotatable} from "../../able"
 import { Direction } from "../../utils";
 import '../../App.css';
@@ -10,7 +10,7 @@ import '../../App.css';
 const MyDraggable: React.FC = () => {
   const position = useRecoilValue(PositionState);
   const size = useRecoilValue(SizeState);
-  const deg = useRecoilValue(DegState);
+  const radian = useRecoilValue(RadianState);
   
   const move = Movable<HTMLDivElement>();
   const rotate = Rotatable<HTMLDivElement>();
@@ -29,7 +29,7 @@ const MyDraggable: React.FC = () => {
       className="item"
       id="item"
       style={{ 
-        transform: `rotate(${deg}deg)`, 
+        transform: `rotate(${radian}deg)`, 
         width: Math.abs(size.width), 
         height: Math.abs(size.height),
         left: position.x - Math.abs(size.width) / 2,
