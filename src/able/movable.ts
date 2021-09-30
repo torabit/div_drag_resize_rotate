@@ -1,7 +1,7 @@
 import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState} from "recoil";
 import PositionState from "../states/atoms/PositionState";
-import { useDragReturn, DragState } from "../interfaces/index";
+import { useDragReturn, DragState } from "../models/index";
 import { getDelta } from "../utils";
 
 export const Movable = <T extends Element>(): useDragReturn<T> => {

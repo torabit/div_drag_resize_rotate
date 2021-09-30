@@ -3,7 +3,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import DegState from "../states/atoms/DegState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
-import {useDragReturn, RotateState} from "../interfaces/index";
+import {useDragReturn, RotateState} from "../models/index";
 import { getAngle } from "../utils";
 
 export const Rotatable = <T extends Element> (): useDragReturn<T> => {
