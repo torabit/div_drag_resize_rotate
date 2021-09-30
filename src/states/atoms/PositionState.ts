@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Position } from "../../interfaces";
+import { Position } from "../../models";
 
 const PositionState = atom<Position> ({
   key: "PositionState",

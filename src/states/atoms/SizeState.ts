@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Size } from "../../interfaces";
+import { Size } from "../../models";
 
 const SizeState = atom<Size> ({
   key: "SizeState",
