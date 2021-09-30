@@ -29,18 +29,18 @@ export interface useDragReturn<T extends Element> {
 }
 
 export interface DragState {
-  currentPosition: Position;
+  startPosition: Position;
   startCursor: Position;
 }
 
 export interface ReSizeState {
-  currentSize: Size;
-  currentPosition: Position;
+  startSize: Size;
+  startPosition: Position;
   startCursor: Position
 }
 
 export interface RotateState {
-  currentSize: Size;
-  currentPosition: Position;
+  startSize: Size;
+  startPosition: Position;
   startVector: Position
 }

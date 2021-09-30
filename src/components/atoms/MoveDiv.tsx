@@ -1,6 +1,5 @@
 import React from "react";
 import { Movable } from "../../able";
-import "../../App.css";
 
 const MoveDiv: React.FC = () => {
   const move = Movable<HTMLDivElement>();

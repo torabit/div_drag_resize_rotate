@@ -2,6 +2,7 @@ import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState} from "recoil";
 import PositionState from "../states/atoms/PositionState";
 import { useDragReturn, DragState } from "../interfaces/index";
+import { getDelta } from "../utils";
 
 export const Movable = <T extends Element>(): useDragReturn<T> => {
 
@@ -15,7 +16,7 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
       event.currentTarget.setPointerCapture(event.pointerId);
 
       setState({
-        currentPosition: {
+        startPosition: {
           x: position.x,
           y: position.y,
         },
@@ -39,10 +40,12 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
         x: event.clientX,
         y: event.clientY
       };
+      
+      const delta = getDelta(state.startCursor, currentCursor);
 
       setPosition({
-        x: state.currentPosition.x + currentCursor.x - state.startCursor.x,
-        y: state.currentPosition.y + currentCursor.y - state.startCursor.y,
+        x: state.startPosition.x - delta.x,
+        y: state.startPosition.y - delta.y,
       });
 
     },
@@ -56,18 +59,8 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
 
       if (state === null) return;
 
-      const currentCursor = {
-        x: event.clientX,
-        y: event.clientY
-      };
-
-      setPosition({
-        x: state.currentPosition.x + currentCursor.x - state.startCursor.x,
-        y: state.currentPosition.y + currentCursor.y - state.startCursor.y,
-      });
-
     },
-    [state, setPosition]
+    [state]
   );
   return {
     onPointerDown: startDrag,
