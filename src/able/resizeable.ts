@@ -1,6 +1,6 @@
 import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { useDragReturn, ReSizeState } from "../interfaces";
+import { useDragReturn, ReSizeState, Position } from "../interfaces";
 import { direction } from "../utils";
 import RadianState from "../states/atoms/RadianState";
 import PositionState from "../states/atoms/PositionState";
@@ -41,7 +41,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
       event.preventDefault();
       if (state === null) return;
 
-      const currentCursor = {
+      const currentCursor: Position = {
         x: event.clientX,
         y: event.clientY
       };
