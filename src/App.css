@@ -73,46 +73,38 @@
 
 .resizer.n {
   top: -5px;
-  cursor: n-resize;
 }
 
 .resizer.nw {
   top: -5px;
   left: -5px;
-  cursor: nw-resize;
 }
 
 .resizer.ne {
   top: -5px;
   right: -5px;
-  cursor: ne-resize;
 }
 
 .resizer.sw {
   bottom: -5px;
   left: -5px;
-  cursor: sw-resize;
 }
 
 .resizer.w {
   bottom: 50%;
   left: -5px;
-  cursor: w-resize;
 }
 
 .resizer.e {
   bottom: 50%;
   right: -5px;
-  cursor: e-resize;
 }
 
 .resizer.se {
   bottom: -5px;
   right: -5px;
-  cursor: se-resize;
 }
 
 .resizer.s {
   bottom: -5px;
-  cursor: s-resize;
 }
