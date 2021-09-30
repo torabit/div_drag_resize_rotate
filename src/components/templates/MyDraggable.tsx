@@ -3,26 +3,26 @@ import { useRecoilValue } from "recoil";
 import PositionState from "../../states/atoms/PositionState";
 import SizeState from "../../states/atoms/SizeState";
 import RadianState from "../../states/atoms/RadianState";
-import { Movable, Resizer, Rotatable} from "../../able"
-import { Direction } from "../../utils";
+import { Resizeable } from "../../able"
+import { direction } from "../../utils";
 import '../../App.css';
+import RotateDiv from "../atoms/RotateDiv";
+import MoveDiv from "../atoms/MoveDiv";
+// import ResizeDiv from "../atoms/ResizeDiv";
 
 const MyDraggable: React.FC = () => {
   const position = useRecoilValue(PositionState);
   const size = useRecoilValue(SizeState);
   const radian = useRecoilValue(RadianState);
-  
-  const move = Movable<HTMLDivElement>();
-  const rotate = Rotatable<HTMLDivElement>();
 
-  const resizingE = Resizer<HTMLDivElement>(Direction.e);
-  const resizingW = Resizer<HTMLDivElement>(Direction.w);
-  const resizingS = Resizer<HTMLDivElement>(Direction.s);
-  const resizingN = Resizer<HTMLDivElement>(Direction.n);
-  const resizingNe = Resizer<HTMLDivElement>(Direction.ne);
-  const resizingSe = Resizer<HTMLDivElement>(Direction.se);
-  const resizingSw = Resizer<HTMLDivElement>(Direction.sw);
-  const resizingNw = Resizer<HTMLDivElement>(Direction.nw);
+  const resizingE = Resizeable<HTMLDivElement>(direction.e);
+  const resizingW = Resizeable<HTMLDivElement>(direction.w);
+  const resizingS = Resizeable<HTMLDivElement>(direction.s);
+  const resizingN = Resizeable<HTMLDivElement>(direction.n);
+  const resizingNe = Resizeable<HTMLDivElement>(direction.ne);
+  const resizingSe = Resizeable<HTMLDivElement>(direction.se);
+  const resizingSw = Resizeable<HTMLDivElement>(direction.sw);
+  const resizingNw = Resizeable<HTMLDivElement>(direction.nw);
   
   return (
     <div
@@ -36,20 +36,9 @@ const MyDraggable: React.FC = () => {
         top: position.y - Math.abs(size.height) / 2, 
       }}
     >
-      <div
-        className="move"
-        onPointerDown={move.onPointerDown}
-        onPointerMove={move.onPointerMove}
-        onPointerUp={move.onPointerUp}
-      />
-      <div className="rotate">
-        <div className="rotate-circle"
-          onPointerDown={rotate.onPointerDown}
-          onPointerMove={rotate.onPointerMove}
-          onPointerUp={rotate.onPointerUp}
-        />
-        <div className="rotate-bar"/>
-      </div>
+      <MoveDiv/>
+      <RotateDiv/>
+      {/* <ResizeDiv direction={direction.e}/> */}
       <div
         className="resizer n"
         onPointerDown={resizingN.onPointerDown}

@@ -10,6 +10,17 @@ export interface Size {
   height: number;
 }
 
+export interface Direction {
+  n: number,
+  ne: number,
+  e: number,
+  se: number,
+  s: number,
+  sw: number,
+  w: number,
+  nw: number,
+}
+
 export interface useDragReturn<T extends Element> {
   onPointerDown: (event: PointerEvent<T>) => void;
   onPointerMove: (event: PointerEvent<T>) => void;

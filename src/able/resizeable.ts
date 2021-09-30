@@ -1,12 +1,12 @@
 import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useDragReturn, ReSizeState } from "../interfaces";
-import { Direction } from "../utils";
+import { direction } from "../utils";
 import RadianState from "../states/atoms/RadianState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
 
-export const Resizer = <T extends Element> (direction: number): useDragReturn<T> => {
+export const Resizeable = <T extends Element> (divDirection: number): useDragReturn<T> => {
   
   const [state, setState] = useState<ReSizeState | null>(null);
 
@@ -55,8 +55,8 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
       const deltaW = deltaL * Math.cos(beta);
       const deltaH = deltaL * Math.sin(beta)
 
-      switch (direction) {
-        case Direction.n: 
+      switch (divDirection) {
+        case direction.n: 
           setSize({
             width: state.currentSize.width,
             height: state.currentSize.height + deltaH
@@ -67,7 +67,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.ne:
+        case direction.ne:
           setSize({
             width: state.currentSize.width - deltaW,
             height: state.currentSize.height + deltaH
@@ -78,7 +78,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.e:
+        case direction.e:
           setSize({
             width: state.currentSize.width - deltaW,
             height: state.currentSize.height
@@ -89,7 +89,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.se:
+        case direction.se:
           setSize({
             width: state.currentSize.width - deltaW,
             height: state.currentSize.height - deltaH
@@ -100,7 +100,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.sw:
+        case direction.sw:
           setSize({
             width: state.currentSize.width + deltaW,
             height: state.currentSize.height - deltaH
@@ -111,7 +111,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.w:
+        case direction.w:
           setSize({
             width: state.currentSize.width + deltaW,
             height: state.currentSize.height
@@ -122,7 +122,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.s:
+        case direction.s:
           setSize({
             width: state.currentSize.width,
             height: state.currentSize.height - deltaH
@@ -133,7 +133,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
           });
         break;
 
-        case Direction.nw:
+        case direction.nw:
           setSize({
             width: state.currentSize.width + deltaW,
             height: state.currentSize.height + deltaH
@@ -145,7 +145,7 @@ export const Resizer = <T extends Element> (direction: number): useDragReturn<T>
         break;
       }
     },
-    [state, setSize, setPosition, direction, radian]
+    [state, setSize, setPosition, divDirection, radian]
   );
 
   const endDrag = useCallback(
