@@ -4,6 +4,7 @@ import RadianState from "../states/atoms/RadianState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
 import {useDragReturn, RotateState} from "../interfaces/index";
+import { getAngle } from "../utils";
 
 export const Rotatable = <T extends Element> (): useDragReturn<T> => {
 
@@ -11,7 +12,6 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
   const [radian, setRadian] = useRecoilState(RadianState);
   const size = useRecoilValue(SizeState);
   const position = useRecoilValue(PositionState);
-
 
   const startDrag = useCallback(
     (event: PointerEvent<T>) => {
@@ -45,10 +45,8 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
         y: event.clientY - state.currentPosition.y
       }
       
-      const dot = state.startVector.x * rotateVector.x + state.startVector.y * rotateVector.y;
-      const det = state.startVector.x * rotateVector.y - state.startVector.y * rotateVector.x;
-      const angle = (Math.atan2(det, dot) / Math.PI) * 180;
-      setRadian((radian + angle + 360) % 360);
+      const angle = getAngle(state.startVector, rotateVector);
+      setRadian(angle + (radian + 360) % 360);
     },
     [state, setRadian]
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import { Rotatable } from "../../able";
-import "../../App.css";
 
 interface Props {
   styleName: string
@@ -10,7 +9,8 @@ const RotateDiv: React.FC<Props> = (props) => {
   const rotate = Rotatable<HTMLDivElement>();
 
   return(
-    <div className={props.styleName}
+    <div 
+      className={props.styleName}
       onPointerDown={rotate.onPointerDown}
       onPointerMove={rotate.onPointerMove}
       onPointerUp={rotate.onPointerUp}

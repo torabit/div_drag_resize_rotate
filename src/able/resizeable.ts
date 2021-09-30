@@ -1,7 +1,7 @@
 import { useState, useCallback, PointerEvent } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useDragReturn, ReSizeState, Position } from "../interfaces";
-import { direction } from "../utils";
+import { direction, getLength } from "../utils";
 import RadianState from "../states/atoms/RadianState";
 import PositionState from "../states/atoms/PositionState";
 import SizeState from "../states/atoms/SizeState";
@@ -48,12 +48,12 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
 
       const deltaX = state.startCursor.x - currentCursor.x;
       const deltaY = state.startCursor.y - currentCursor.y; 
-      const deltaL = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const deltaL = getLength(deltaX, deltaY);
       const rotateAngle = radian * Math.PI / 180;
       const alpha = Math.atan2(deltaY, deltaX);
       const beta = alpha - rotateAngle;
       const deltaW = deltaL * Math.cos(beta);
-      const deltaH = deltaL * Math.sin(beta)
+      const deltaH = deltaL * Math.sin(beta);
 
       switch (divDirection) {
         case direction.n: 
