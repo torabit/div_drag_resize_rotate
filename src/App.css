@@ -36,27 +36,30 @@
 
 .rotate {
   position: absolute;
-  display: flex;
-  justify-content: center;
-}
-
-.rotate-circle {
-  position: absolute;
-  width: 7px;
-  height: 7px;
+  width: 13px;
+  height: 13px;
   border-radius: 1px;
-  bottom: 35px;
-  border: 1px solid #5589f8;
-  background-color: #fff;
   cursor: alias;
 }
 
-.rotate-bar {
-  position: absolute;
-  background-color: #acacac;
-  bottom: 5px;
-  height: 30px;
-  width: 1px;
+.rotate.ne {
+  top: -15px;
+  right: -15px;
+}
+
+.rotate.se {
+  bottom: -15px;
+  right: -15px;
+}
+
+.rotate.sw {
+  bottom: -15px;
+  left: -15px;
+}
+
+.rotate.nw {
+  top: -15px;
+  left: -15px;
 }
 
 .resizer {

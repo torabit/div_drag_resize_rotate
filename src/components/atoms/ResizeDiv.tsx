@@ -2,15 +2,16 @@ import React from "react";
 import { Resizeable } from "../../able";
 
 interface Props {
-  direction: number;
+  directionNum: number;
+  styleName: string;
 }
 
 const ResizeDiv: React.FC<Props> = (props) => {
-  const resize = Resizeable<HTMLDivElement>(props.direction);
+  const resize = Resizeable<HTMLDivElement>(props.directionNum);
 
   return (
     <div
-      className="resizer"
+      className={props.styleName}
       onPointerDown={resize.onPointerDown}
       onPointerMove={resize.onPointerMove}
       onPointerUp={resize.onPointerUp}
