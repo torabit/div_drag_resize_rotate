@@ -1,18 +1,18 @@
 import { useState, useCallback, PointerEvent } from "react";
-import { useRecoilState} from "recoil";
-import PositionState from "../states/atoms/PositionState";
-import { useDragReturn, DragState } from "../models/index";
+import { useDragReturn, DragState, Position } from "../models/index";
 import { getDelta } from "../utils";
 
-export const Movable = <T extends Element>(): useDragReturn<T> => {
+export const Movable = <T extends Element>(
+  position: Position,
+  setPosition: (position: Position) => void
+): useDragReturn<T> => {
 
   const [state, setState] = useState<DragState | null>(null);
-
-  const [position, setPosition] = useRecoilState(PositionState);
 
   const startDrag = useCallback(
     (event: PointerEvent<T>) => {
       
+      // 素早くドラッグした場合、要素からカーソルがはみ出た場合の挙動を強制する。
       event.currentTarget.setPointerCapture(event.pointerId);
 
       setState({
@@ -33,7 +33,9 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
   const dragging = useCallback(
     (event: PointerEvent<T>) => {
 
+      // 画面外に動かしたときにスクロールを許可しない。
       event.preventDefault();
+
       if (state === null) return;
 
       const currentCursor = {
@@ -51,14 +53,13 @@ export const Movable = <T extends Element>(): useDragReturn<T> => {
     },
     [state, setPosition]
   );
+
   const endDrag = useCallback(
     (event: PointerEvent<T>) => {
-
+      
       event.currentTarget.releasePointerCapture(event.pointerId);
       setState(null);
-
       if (state === null) return;
-
     },
     [state]
   );

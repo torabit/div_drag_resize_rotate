@@ -1,17 +1,15 @@
 import { useState, useCallback, PointerEvent } from "react";
-import { useRecoilValue, useRecoilState } from "recoil";
-import DegState from "../states/atoms/DegState";
-import PositionState from "../states/atoms/PositionState";
-import SizeState from "../states/atoms/SizeState";
-import {useDragReturn, RotateState} from "../models/index";
+import {useDragReturn, RotateState, Size, Position} from "../models/index";
 import { getAngle } from "../utils";
 
-export const Rotatable = <T extends Element> (): useDragReturn<T> => {
+export const Rotatable = <T extends Element> (
+  deg: number,
+  setDeg: (deg: number) => void,
+  size: Size,
+  position: Position
+): useDragReturn<T> => {
 
   const [state, setState] = useState<RotateState | null>(null);
-  const [deg, setDeg] = useRecoilState(DegState);
-  const size = useRecoilValue(SizeState);
-  const position = useRecoilValue(PositionState);
 
   const startDrag = useCallback(
     (event: PointerEvent<T>) => {
@@ -53,12 +51,10 @@ export const Rotatable = <T extends Element> (): useDragReturn<T> => {
 
   const endDrag = useCallback(
     (event: PointerEvent<T>) => {
-
+      
       event.currentTarget.releasePointerCapture(event.pointerId);
       setState(null);
-
       if (state === null) return;
-
     },
     [state]
   );

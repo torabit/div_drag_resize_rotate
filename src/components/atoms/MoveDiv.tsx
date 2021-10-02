@@ -1,8 +1,14 @@
 import React from "react";
 import { Movable } from "../../able";
+import { Position } from "../../models";
 
-const MoveDiv: React.FC = () => {
-  const move = Movable<HTMLDivElement>();
+interface Props {
+  position: Position
+  setPosition: (position: Position) => void
+}
+
+const MoveDiv: React.FC<Props> = (props) => {
+  const move = Movable<HTMLDivElement>(props.position, props.setPosition);
   return(
     <div
       className="move"

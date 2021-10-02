@@ -1,18 +1,17 @@
 import { useState, useCallback, PointerEvent } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { useDragReturn, ReSizeState, Position } from "../models";
+import { useDragReturn, ReSizeState, Position, Size } from "../models";
 import { direction, getDelta, getLength } from "../utils";
-import DegState from "../states/atoms/DegState";
-import PositionState from "../states/atoms/PositionState";
-import SizeState from "../states/atoms/SizeState";
 
-export const Resizeable = <T extends Element> (divDirection: number): useDragReturn<T> => {
+export const Resizeable = <T extends Element> (
+  size: Size,
+  setSize: (size:Size) => void,
+  position: Position,
+  setPosition: (position: Position) => void,
+  deg: number,
+  directionNum: number
+): useDragReturn<T> => {
   
   const [state, setState] = useState<ReSizeState | null>(null);
-
-  const [size, setSize] = useRecoilState(SizeState);
-  const [position, setPosition] = useRecoilState(PositionState);
-  const deg = useRecoilValue(DegState);
 
   const startDrag = useCallback(
     (event: PointerEvent<T>) => {
@@ -54,8 +53,9 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
       const deltaW = deltaL * Math.cos(beta);
       const deltaH = deltaL * Math.sin(beta);
 
-      switch (divDirection) {
+      switch (directionNum) {
         case direction.n: 
+          // s固定
           setSize({
             width: state.startSize.width,
             height: state.startSize.height + deltaH
@@ -67,6 +67,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
         break;
 
         case direction.ne:
+          // sw固定
           setSize({
             width: state.startSize.width - deltaW,
             height: state.startSize.height + deltaH
@@ -78,6 +79,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
         break;
 
         case direction.e:
+          // w固定
           setSize({
             width: state.startSize.width - deltaW,
             height: state.startSize.height
@@ -89,6 +91,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
         break;
 
         case direction.se:
+          // nw固定
           setSize({
             width: state.startSize.width - deltaW,
             height: state.startSize.height - deltaH
@@ -99,7 +102,20 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
           });
         break;
 
+        case direction.s:
+          // n固定
+          setSize({
+            width: state.startSize.width,
+            height: state.startSize.height - deltaH
+          });
+          setPosition({
+            x: state.startPosition.x + deltaH / 2 * Math.sin(rotateAngle),
+            y: state.startPosition.y - deltaH / 2 * Math.cos(rotateAngle)
+          });
+        break;
+
         case direction.sw:
+          // ne固定
           setSize({
             width: state.startSize.width + deltaW,
             height: state.startSize.height - deltaH
@@ -111,6 +127,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
         break;
 
         case direction.w:
+          // e固定
           setSize({
             width: state.startSize.width + deltaW,
             height: state.startSize.height
@@ -121,18 +138,8 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
           });
         break;
 
-        case direction.s:
-          setSize({
-            width: state.startSize.width,
-            height: state.startSize.height - deltaH
-          });
-          setPosition({
-            x: state.startPosition.x + deltaH / 2 * Math.sin(rotateAngle),
-            y: state.startPosition.y - deltaH / 2 * Math.cos(rotateAngle)
-          });
-        break;
-
         case direction.nw:
+          // se固定
           setSize({
             width: state.startSize.width + deltaW,
             height: state.startSize.height + deltaH
@@ -144,7 +151,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
         break;
       }
     },
-    [state, setSize, setPosition, divDirection, deg]
+    [state, setSize, setPosition, directionNum, deg]
   );
 
   const endDrag = useCallback(
@@ -152,9 +159,7 @@ export const Resizeable = <T extends Element> (divDirection: number): useDragRet
 
       event.currentTarget.releasePointerCapture(event.pointerId);
       setState(null);
-
       if (state === null) return;
-
     },
     [state]
   );

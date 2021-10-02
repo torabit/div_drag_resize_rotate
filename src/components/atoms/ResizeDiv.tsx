@@ -1,18 +1,28 @@
 import React from "react";
 import { Resizeable } from "../../able";
 import { getCursor } from "../../utils";
-import DegState from "../../states/atoms/DegState";
-import { useRecoilValue } from "recoil";
+import { Position, Size } from "../../models";
 
 interface Props {
-  directionNum: number;
-  styleName: string;
+  directionNum: number
+  styleName: string
+  size: Size
+  setSize: (size: Size) => void
+  position: Position
+  setPosition: (position: Position) => void
+  deg: number
 }
 
 const ResizeDiv: React.FC<Props> = (props) => {
-  const resize = Resizeable<HTMLDivElement>(props.directionNum);
-  const deg = useRecoilValue(DegState);
-  const cursor = getCursor(deg, props.directionNum);
+  const resize = Resizeable<HTMLDivElement>(
+    props.size, 
+    props.setSize, 
+    props.position,
+    props.setPosition,
+    props.deg,
+    props.directionNum
+  );
+  const cursor = getCursor(props.deg, props.directionNum);
   
   return (
     <div
