@@ -1,6 +1,7 @@
 import { Direction } from "../models"
 
 export const direction: Direction = {n: 0, ne: 1, e: 2, se: 3, s: 4, sw: 5, w: 6, nw: 7}
+export const cursorDirectionArray = [ 'n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw' ];
 
 export const getLength = (
   x: number, y: number
@@ -26,8 +27,6 @@ export const getDelta = (
   }
   return delta;
 }
-
-const cursorDirectionArray = [ 'n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw' ]
 
 export const getCursor = (
   rotateAngle: number, 

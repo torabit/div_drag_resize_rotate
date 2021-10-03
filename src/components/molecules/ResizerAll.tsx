@@ -1,7 +1,7 @@
 import React from "react";
 import { Position, Size } from "../../models";
-import { direction } from "../../utils";
 import ResizeDiv from "../atoms/ResizeDiv";
+import { cursorDirectionArray } from "../../utils";
 
 interface Props {
   size: Size
@@ -12,81 +12,22 @@ interface Props {
 }
 
 const ResizerAll: React.FC<Props> = (props) => {
+  const direction = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
-    <React.Fragment>
-      <ResizeDiv 
-        directionNum={direction.n} 
-        styleName={"resizer n"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.ne} 
-        styleName={"resizer ne"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.e} 
-        styleName={"resizer e"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.se} 
-        styleName={"resizer se"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.s} 
-        styleName={"resizer s"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.sw} 
-        styleName={"resizer sw"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.w} 
-        styleName={"resizer w"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-      <ResizeDiv 
-        directionNum={direction.nw} 
-        styleName={"resizer nw"}
-        size={props.size}
-        setSize={props.setSize}
-        position={props.position}
-        setPosition={props.setPosition}
-        deg={props.deg}
-      />
-    </React.Fragment>
+    <>
+      {direction.map(d => (
+        <ResizeDiv 
+          key={d}
+          directionNum={d} 
+          styleName={`resizer ${cursorDirectionArray[d]}`}
+          size={props.size}
+          setSize={props.setSize}
+          position={props.position}
+          setPosition={props.setPosition}
+          deg={props.deg}
+        />
+      ))}
+    </>
   )
 }
 

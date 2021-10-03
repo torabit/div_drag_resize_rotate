@@ -11,7 +11,7 @@ interface Props {
 
 const RotateAll: React.FC<Props> = (props) => {
   return (
-    <React.Fragment>
+    <>
       <RotateDiv styleName={"rotate ne"} 
         deg={props.deg} 
         setDeg={props.setDeg}
@@ -39,7 +39,7 @@ const RotateAll: React.FC<Props> = (props) => {
         size={props.size}
         position={props.position}
       />
-    </React.Fragment>
+    </>
   )
 }
 
