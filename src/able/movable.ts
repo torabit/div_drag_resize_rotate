@@ -33,7 +33,6 @@ export const Movable = <T extends Element>(
   const dragging = useCallback(
     (event: PointerEvent<T>) => {
 
-      // 画面外に動かしたときにスクロールを許可しない。
       event.preventDefault();
 
       if (state === null) return;

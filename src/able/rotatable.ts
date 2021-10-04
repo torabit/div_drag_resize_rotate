@@ -44,7 +44,8 @@ export const Rotatable = <T extends Element> (
       }
       
       const angle = getAngle(state.startVector, rotateVector);
-      setDeg(angle + (deg + 360) % 360);
+      let newDeg = angle + deg;
+      setDeg(newDeg);
     },
     [state, setDeg]
   );

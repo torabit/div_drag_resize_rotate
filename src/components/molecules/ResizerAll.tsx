@@ -1,7 +1,7 @@
 import React from "react";
 import { Position, Size } from "../../models";
 import ResizeDiv from "../atoms/ResizeDiv";
-import { cursorDirectionArray } from "../../utils";
+import { cursorDirectionArray, direction } from "../../utils";
 
 interface Props {
   size: Size
@@ -12,10 +12,19 @@ interface Props {
 }
 
 const ResizerAll: React.FC<Props> = (props) => {
-  const direction = [0, 1, 2, 3, 4, 5, 6, 7];
+  const directionsNum = [
+    direction.n, 
+    direction.ne, 
+    direction.e, 
+    direction.se, 
+    direction.s, 
+    direction.sw, 
+    direction.w, 
+    direction.nw
+  ];
   return (
     <>
-      {direction.map(d => (
+      {directionsNum.map(d => (
         <ResizeDiv 
           key={d}
           directionNum={d} 
