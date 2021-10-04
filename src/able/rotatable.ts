@@ -27,9 +27,10 @@ export const Rotatable = <T extends Element> (
           x: event.clientX - position.x,
           y: event.clientY - position.y,
         },
+        startDeg: deg
       });
     },
-    [size.height, size.width, position.x, position.y]
+    [size.height, size.width, position.x, position.y, deg]
   );
 
   const dragging = useCallback(
@@ -44,7 +45,7 @@ export const Rotatable = <T extends Element> (
       }
       
       const angle = getAngle(state.startVector, rotateVector);
-      let newDeg = angle + deg;
+      let newDeg = angle + state.startDeg;
       setDeg(newDeg);
     },
     [state, setDeg]

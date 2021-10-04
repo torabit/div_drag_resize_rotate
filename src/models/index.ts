@@ -36,11 +36,12 @@ export interface DragState {
 export interface ReSizeState {
   startSize: Size;
   startPosition: Position;
-  startCursor: Position
+  startCursor: Position;
 }
 
 export interface RotateState {
   startSize: Size;
   startPosition: Position;
-  startVector: Position
+  startVector: Position;
+  startDeg: number;
 }
